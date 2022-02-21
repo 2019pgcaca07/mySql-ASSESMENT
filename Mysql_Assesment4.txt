@@ -1,0 +1,41 @@
+Subqueries
+SELECT Trainer_Id
+ FROM Associate_Status 
+ WHERE Associate_Id IN (SELECT Associate_Id 
+ FROM Associate_Info
+ WHERE Associate_Name like ‘%I%’) ;
+SELECT Trainer_Id
+ FROM Associate_Status 
+ WHERE Associate_Id IN (SELECT Associate_Id 
+ FROM Associate_Info
+ WHERE Associate_Name not like ‘%I%’) ;
+SELECT Trainer_Id , Trainer_Rating
+ FROM Trainer_Feedback 
+ WHERE Trainer_Id IN (SELECT Trainer_Id
+ FROM Associate_Status
+ WHERE Module = ‘J2EE’) ;
+SELECT Name , Registration_Number
+ FROM Table 
+ WHERE Registration_number in (SELECT max(marks)
+ FROM Table 
+ WHERE subject = ‘EI05IP’) ;
+SELECT Name , Registration_Number
+ FROM Table 
+ WHERE Registration_number in (select Registration_number
+from Table
+Where sub=‘E1051P’
+order by marks desc limit 1,1;
+) ;
+Joins
+SELECT a.Trainer_Id, b.Batch_Id
+FROM Trainer_Info a
+CROSS JOIN Batch_Info b
+SELECT Associate_Status.*., Batch_Info.*
+FROM Associate_Status
+FULL OUTER JOIN Batch_info 
+
+ON Associate_Status.Batch_Id=batch_Info.Batch_Id
+SELECT Trainer_Info.Trainer_Id, Associate_Status.Associate_ID
+FROM Trainer_Info 
+LEFT JOIN Associate_Status
+ON Trainer_Info.Trainer_Id=Associate_Status.Trainer_ID
